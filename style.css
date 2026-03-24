@@ -1,0 +1,62 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #fff; }
+
+#login-screen { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.login-box { text-align: center; background: #16213e; padding: 40px; border-radius: 16px; border: 2px solid #e94560; }
+.login-box h1 { font-size: 2rem; margin-bottom: 20px; }
+.login-box p { margin-bottom: 10px; color: #aaa; }
+.login-box input { padding: 12px 20px; font-size: 1.2rem; border-radius: 8px; border: 2px solid #555; background: #0f3460; color: #fff; text-align: center; width: 200px; display: block; margin: 10px auto; }
+.login-box button { padding: 12px 30px; font-size: 1rem; border-radius: 8px; border: none; cursor: pointer; margin: 8px; font-weight: bold; }
+#login-btn { background: #e94560; color: #fff; }
+#spectate-btn { background: #0f3460; color: #fff; border: 1px solid #e94560; }
+#login-error { color: #e94560; margin-top: 10px; }
+
+#game-screen { width: 100%; height: 100%; }
+#gameContainer { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #1a1a2e; position: relative; }
+#gameCanvas { max-width: 100%; max-height: 100%; object-fit: contain; }
+#ui-layer { position: absolute; inset: 0; pointer-events: none; }
+#waiting-overlay { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.7); color: #fff; font-size: 1.5rem; z-index: 100; }
+
+#leaderboard-panel { position: absolute; right: 10px; top: 10px; width: 220px; background: rgba(15,52,96,0.95); border-radius: 12px; padding: 15px; pointer-events: auto; border: 1px solid #e94560; }
+#leaderboard-panel h3 { text-align: center; color: #e94560; margin-bottom: 10px; font-size: 1rem; }
+.lb-entry { display: flex; justify-content: space-between; padding: 4px 8px; border-radius: 4px; margin: 2px 0; font-size: 0.85rem; }
+.lb-entry:nth-child(2) { background: rgba(233,69,96,0.3); }
+.lb-entry .lb-name { color: #ddd; }
+.lb-entry .lb-score { color: #e94560; font-weight: bold; }
+
+#player-list-panel { position: absolute; left: 10px; top: 10px; width: 200px; background: rgba(15,52,96,0.95); border-radius: 12px; padding: 15px; pointer-events: auto; border: 1px solid #533483; }
+#player-list-panel h3 { text-align: center; color: #533483; margin-bottom: 10px; font-size: 1rem; }
+.pl-entry { padding: 6px 8px; margin: 3px 0; background: rgba(83,52,131,0.3); border-radius: 6px; cursor: pointer; font-size: 0.85rem; text-align: center; }
+.pl-entry:hover { background: rgba(83,52,131,0.6); }
+
+#my-info { position: absolute; left: 10px; bottom: 10px; background: rgba(15,52,96,0.95); border-radius: 12px; padding: 15px; pointer-events: auto; border: 1px solid #533483; font-size: 0.9rem; }
+#my-info .mi-name { color: #e94560; font-weight: bold; font-size: 1.1rem; }
+#my-info .mi-points { color: #0fb; font-size: 1.3rem; margin-top: 5px; }
+#my-info .mi-items { color: #aaa; margin-top: 5px; font-size: 0.8rem; max-height: 120px; overflow-y: auto; }
+
+#trade-ui { position: absolute; inset: 0; display: flex; pointer-events: auto; background: rgba(0,0,0,0.85); z-index: 50; }
+.trade-side { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px; position: relative; }
+.trade-side.left { border-right: 3px solid #e94560; }
+.trade-side .side-label { font-size: 1.2rem; color: #aaa; margin-bottom: 10px; }
+.trade-items { flex: 1; width: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 8px; overflow-y: auto; padding: 10px; }
+.trade-item { background: rgba(83,52,131,0.5); border-radius: 8px; padding: 8px 12px; font-size: 0.9rem; border: 1px solid #533483; }
+.trade-item .ti-value { color: #e94560; font-size: 0.7rem; }
+.trade-buttons { display: flex; gap: 20px; margin-top: 15px; }
+.trade-btn { width: 70px; height: 70px; border-radius: 50%; border: 3px solid; font-size: 2rem; cursor: pointer; background: transparent; color: #fff; display: flex; align-items: center; justify-content: center; }
+.btn-decline { border-color: #e94560; color: #e94560; }
+.btn-decline:hover { background: rgba(233,69,96,0.3); }
+.btn-add { border-color: #4ea8de; color: #4ea8de; }
+.btn-add:hover { background: rgba(78,168,222,0.3); }
+.btn-accept { border-color: #06d6a0; color: #06d6a0; }
+.btn-accept:hover { background: rgba(6,214,160,0.3); }
+.accepted-label { color: #06d6a0; font-size: 1rem; margin-top: 5px; }
+
+#item-picker { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: rgba(0,0,0,0.9); z-index: 60; pointer-events: auto; }
+.picker-box { background: #16213e; border-radius: 16px; padding: 20px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; border: 2px solid #e94560; }
+.picker-box h3 { text-align: center; margin-bottom: 15px; color: #e94560; }
+.picker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.picker-item { background: rgba(83,52,131,0.4); border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; border: 1px solid #533483; font-size: 0.85rem; }
+.picker-item:hover { background: rgba(83,52,131,0.7); }
+.picker-item .pi-value { color: #e94560; font-size: 0.7rem; }
+.picker-item.disabled { opacity: 0.3; cursor: not-allowed; }
+.picker-close { display: block; margin: 15px auto 0; padding: 8px 20px; background: #e94560; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
