@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>🇮🇹 Italian Brainrot Trading 🇮🇹</h1>
+      <p>Enter your Player Code</p>
+      <input type="text" id="code-input" placeholder="Enter code..." maxlength="6">
+      <button id="login-btn">Login</button>
+      <button id="spectate-btn">Spectate</button>
+      <p id="login-error"></p>
+    </div>
+  </div>
+  <div id="game-screen" style="display:none">
+    <div id="gameContainer">
+      <canvas id="gameCanvas" width="2560" height="1440"></canvas>
+      <div id="ui-layer">
+        <div id="leaderboard-panel"></div>
+        <div id="trade-ui" style="display:none"></div>
+        <div id="item-picker" style="display:none"></div>
+        <div id="player-list-panel"></div>
+        <div id="my-info"></div>
+      </div>
+      <div id="waiting-overlay">Waiting for players…</div>
+    </div>
+  </div>
+  <script src="GameObject.js"></script>
+  <script src="Player.js"></script>
+  <script src="RemotePlayer.js"></script>
+  <script src="ItemDatabase.js"></script>
+  <script src="TradeManager.js"></script>
+  <script src="Game.js"></script>
+  <script>
+    let game = null;
+    const USERS = {
+      '942363': { name: 'Eyad S.', admin: false },
+      '521329': { name: 'Omar R.', admin: false },
+      '951338': { name: 'Yahia A.', admin: false },
+      '523123': { name: 'Yazan S.', admin: true },
+      '431234': { name: 'Yassin S.', admin: false },
+      '942364': { name: 'Selim K.', admin: false },
+      '392392': { name: 'Malek K.', admin: false }
+    };
+    let currentUser = null;
+    let isSpectator = false;
+
+    document.getElementById('login-btn').addEventListener('click', () => {
+      const code = document.getElementById('code-input').value.trim();
+      if (USERS[code]) {
+        currentUser = { ...USERS[code], code };
+        isSpectator = false;
+        startGame();
+      } else {
+        document.getElementById('login-error').textContent = 'Invalid code!';
+      }
+    });
+
+    document.getElementById('spectate-btn').addEventListener('click', () => {
+      currentUser = { name: 'Spectator', admin: false, code: '000000' };
+      isSpectator = true;
+      startGame();
+    });
+
+    document.getElementById('code-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('login-btn').click();
+    });
+
+    function startGame() {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('game-screen').style.display = 'block';
+      game = new Game(document.getElementById('gameCanvas'));
+      window.game = game;
+      game.start();
+    }
+  </script>
+</body>
+</html>
